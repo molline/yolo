@@ -1,12 +1,27 @@
 services:
   backend:
+    tty: true
     build: ./backend
+    links:
+      - mongo:mongo
     ports:
-      - 5000:5000
+      - "5000:5000"
+    command: npm start
+    
   client:
+    tty: true
     build: ./client
+    links:
+      - mongo:mongo
     ports:
-      - 3000:3000
+      - "3000:3000"
+    command: npm start
+    
+  mongo:
+    image: mongo
+    ports:
+      - "2701:2701"
+
 
 
 
