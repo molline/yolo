@@ -1,20 +1,28 @@
 services:
   backend:
     tty: true
-    build: ./backend
-    # image: molline/yolo-backend:1.0.0
-    links:
-      - mongodb:mongodb
+    # build: ./backend
+    image: molline/yolo-backend:1.0.0
+    # links:
+    #   - mongodb:mongodb
+    depends_on:
+      - mongodb
     ports:
       - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/yolomy
     command: npm run start
     
   client:
     tty: true
     # build: ./client
     image: molline/yolo-client:1.0.0
-    links:
-      - mongodb:mongodb
+    # links:
+    #   - mongodb:mongodb
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/yolomy
     ports:
       - "3000:3000"
     command: npm start
@@ -23,7 +31,8 @@ services:
     image: mongo
     ports:
       - "2701:2701"
-    command: systemctl start mongodb
+    volumes:
+      - ./data:/data/db
 
 
 
