@@ -2,25 +2,29 @@ services:
   backend:
     tty: true
     build: ./backend
+    # image: molline/yolo-backend:1.0.0
     links:
-      - mongo:mongo
+      - mongodb:mongodb
     ports:
       - "5000:5000"
-    command: npm start
+    command: npm run start
     
   client:
     tty: true
-    build: ./client
+    # build: ./client
+    image: molline/yolo-client:1.0.0
     links:
-      - mongo:mongo
+      - mongodb:mongodb
     ports:
       - "3000:3000"
     command: npm start
     
-  mongo:
+  mongodb:
     image: mongo
     ports:
       - "2701:2701"
+    command: systemctl start mongodb
+
 
 
 
