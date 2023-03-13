@@ -20,7 +20,7 @@
     COPY package.json package.json - copies the contents of the package.json into a package.json file
     RUN npm install - installs the dependencies specified in the package.json
     COPY . . - copies context to the current directory
-    EXPOSE 3000 - Exposes the container on port 5000
+    EXPOSE 3000 - Exposes the container on port 3000
     CMD npm start -starts the client service
   ```
   ##  Docker-compose Networking (Application port allocation and a bridge network implementation) where necessary.
@@ -61,12 +61,18 @@
   ### Docker Compose
     1. Conatiners exit with code 0 
     - Solution - added `tty:true` to the backend and client definitions which enables the containers to stay running with a virtual terminal.
-    2. MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017 
-     - Solution: Added a volume mount and included 
+    2. `MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017 `
+     - Solution: Added a volume mount to the mongo db service and included a MONGO_URI environment variable to be used for connectionto the backend and client resulting in persistence and a connection success.
+     - volume
+  ```
+    volumes:
+        - ./data:/data/db
+  ```
+    - environment variable 
   ```
       environment:
         - MONGODB_URI=mongodb://mongodb:27017/yolomy
-      to the backend and client resulting in persistence and a connection success.
+      
   ```
 
    ## Good practices such as Docker image tag naming standards for ease of identification of images and containers.
