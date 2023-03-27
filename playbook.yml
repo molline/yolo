@@ -3,15 +3,12 @@
   hosts: all
   vars:
     - mongo_uri: mongodb://mongodb:27017/yolomy
-
-
- tasks:
-  - name: Install Docker
-    become: true
-    apt:
-      name: docker.io
-      state: present
-
+  tasks:
+  # - name: Install Docker
+  #   become: true
+  #   apt:
+  #     name: docker.io
+  #     state: present
   - name: Start MongoDB container
     become: true
     docker_container:

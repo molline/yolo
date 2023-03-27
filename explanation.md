@@ -1,6 +1,6 @@
 
   ## Choice of the base image on which to build each container.
-  - The docker file uses node:16.17.0-bullseye-slim . This is beacuse it imlements a  slimmed-down version of the operating system, based on a modern Debian OS, with a stable and active Long Term Support version of Node.js.
+  - The docker file uses node:16.17.0-bullseye-slim . This is beacuse it implements a  slimmed-down version of the operating system, based on a modern Debian OS, with a stable and active Long Term Support version of Node.js.
    ## Dockerfile directives used in the creation and running of each container.
   ## Backend
   ```
@@ -80,3 +80,12 @@
     1. Used semantic version MAJOR.MINOR.PATCH i.e molline/yolo-backend:1.0.0,molline/yolo-client:1.0.0
     2. Descriptive commit nessages to have proper track of the workflow example dockerfile for backend and client and docker compose
     3. Using a base image that is stable and has long term support 
+   ## playbook.yml structure
+   The playbook performs the following tasks:
+
+    1. Installs Docker using the apt package manager.
+    2. Starts a MongoDB container named 'mongodb' using the mongo image.
+    3. Starts a backend container named 'backend' using the molline/yolo-backend:1.0.0 image. The container depends on the 'mongodb' container and runs a command 'npm run start' to start the application.
+    4. Starts a client container named 'client' using the molline/yolo-client:1.0.0 image. The container depends on the 'mongodb' container and runs a command 'npm start' to start the client application.
+  - The playbook also defines a variable 'mongo_uri' that holds the MongoDB connection URI, which is used as an environment variable for both the backend and client containers.
+  - The 'become: true' option in each task allows the playbook to run with elevated privileges.
