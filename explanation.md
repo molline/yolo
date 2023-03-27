@@ -26,12 +26,12 @@
   ##  Docker-compose Networking (Application port allocation and a bridge network implementation) where necessary.
     
   ##  Docker-compose volume definition and usage (where necessary).
-    - On creation of the docker compose file there was need to add a database service (mongodb)that would enable the app access MONGODB database as this does not come with the containers by default. On creation of the service a volume was defined i.e
-     ```
+  - On creation of the docker compose file there was need to add a database service (mongodb)that would enable the app access MONGODB database as this does not come with the containers by default. On creation of the service a volume was defined i.e
+  ```
      volumes:
       - ./data:/data/db 
-     ```
-    - This  mounts the ./data directory from the host machine to the /data/db directory in the container, which allows MongoDB to persist data across container restarts.
+  ```
+  - This  mounts the ./data directory from the host machine to the /data/db directory in the container, which allows MongoDB to persist data across container restarts.
 
   ## Git workflow used to achieve the task.
     1. Forking the repository from Vinge1718/yolo
@@ -51,12 +51,13 @@
                 `sudo npm install react-scripts` ; the reinstallation installs and upgaraded version in my case from version 3.4.3 to version 5.0.1  
     2. Once the server started
     `[eslint]    EACCESS:permission, mkdir 'home/molline/Documents/moringa/yolo/client/node_module/.cache`
-     - Cause - missing .cache file
-     - Solution - `mkdir -p node_modules/.cache` ;creates a .cache file with parent directories as needed
+    - Cause - missing .cache file
+     
+    - Solution - `mkdir -p node_modules/.cache` ;creates a .cache file with parent directories as needed
                 `chmod -R 777 node_modules/.cache`; changes the directory permissions for all users to have read write execute permissions.
   ### Backend  
     1. Missing mongodb drivers blocking access to the local mongodb
-      - Solution - `npm install mongodb --save` 
+  - Solution - `npm install mongodb --save` 
 
   ### Docker Compose
     1. Conatiners exit with code 0 
