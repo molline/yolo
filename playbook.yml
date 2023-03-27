@@ -1,0 +1,50 @@
+---
+- name: YOLO 
+  hosts: all
+  vars:
+    - mongo_uri: mongodb://mongodb:27017/yolomy
+
+
+ tasks:
+  - name: Install Docker
+    become: true
+    apt:
+      name: docker.io
+      state: present
+
+  - name: Start MongoDB container
+    become: true
+    docker_container:
+      name: mongodb
+      image: mongo
+      ports:
+        - "2701:2701"
+      volumes:
+        - ./data:/data/db
+
+  - name: Start Backend container
+    become: true
+    docker_container:
+      name: backend
+      image: molline/yolo-backend:1.0.0
+      depends_on:
+        - mongodb
+      ports:
+        - "5000:5000"
+      environment:
+        - MONGODB_URI={{mongo_uri}} 
+      command: npm run start
+
+  - name: Start Client container
+    become: true
+    docker_container:
+      name: client
+      image: molline/yolo-client:1.0.0
+      depends_on:
+        - mongodb
+      environment:
+        - MONGODB_URI={{mongo_uri}} 
+      ports:
+        - "3000:3000"
+      command: npm start
+
