@@ -37,3 +37,5 @@ To be able to run the pods and services on Kubernetes
     - app: client: This selects all pods with a label of "app: client".
 
 - type: LoadBalancer: This specifies the type of the service. In this case, it is a LoadBalancer service, which allows external traffic to be routed to the selected pods.
+## Application access point
+The app will be accessible on `http://34.135.193.213:3000/`
