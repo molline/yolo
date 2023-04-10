@@ -7,10 +7,10 @@ metadata:
     app: client
 spec:
   ports:
-  - nodePort: 8080
+  - nodePort: 30050
     port: 3000
     protocol: TCP
-    targetport: 3000
+    # targetport: 3000
   selector:
     app: client
   type: nodePort
