@@ -13,6 +13,6 @@ spec:
     # targetport: 3000
   selector:
     app: client
-  type: nodePort
+  type: NoodePort
 
 
